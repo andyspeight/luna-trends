@@ -1,1 +1,1 @@
-# lune-trends
+# luna-trends
