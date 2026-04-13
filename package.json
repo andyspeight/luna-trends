@@ -1,0 +1,9 @@
+{
+  "name": "luna-trends",
+  "version": "1.0.0",
+  "description": "Luna Trends — Travel Intelligence Engine by Travelgenix",
+  "private": true,
+  "dependencies": {
+    "rss-parser": "^3.13.0"
+  }
+}
