@@ -1,0 +1,12 @@
+{
+  "crons": [
+    {
+      "path": "/api/collect?secret=${CRON_SECRET}",
+      "schedule": "0 */2 * * *"
+    },
+    {
+      "path": "/api/synthesise?secret=${CRON_SECRET}",
+      "schedule": "0 6 * * *"
+    }
+  ]
+}
