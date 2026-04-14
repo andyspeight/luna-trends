@@ -6,31 +6,6 @@ const TABLES = {
   sources: 'tblCiANWGoKlpuFxn',
   signals: 'tblghkLE4lZMvCRqx'
 };
-const FIELDS = {
-  sources: {
-    name: 'fldABVwNtm1jM8RY4',
-    category: 'fldWCBsEKabvR8MF9',
-    type: 'flddNuYJ0CvLFmu2f',
-    url: 'fldW4uGKfGXH5d1tp',
-    frequency: 'fldKxq01qvPfyhPMr',
-    status: 'fld94w4Jm6IUakVun',
-    lastChecked: 'fldteacXzLucsnW6q',
-    notes: 'fldguHXzEVblqHF9b'
-  },
-  signals: {
-    title: 'fldb16Yn717CrfXqw',
-    summary: 'fldLPLo2q3T0mDZH2',
-    sourceName: 'fldVBq7sYrTM9ztAi',
-    signalType: 'fldXPDo5aJBKDEPP0',
-    destinations: 'fldLI74PYa0K8jKCr',
-    airlines: 'fldtZi6BARoKksqcu',
-    sourceUrl: 'fldRHbVVdAEN3aUaP',
-    detectedAt: 'fldmPEkccSm8UVef8',
-    relevance: 'fldFHbh1RHbZobhqW',
-    processed: 'fldPbQd52N1xHfw3u',
-    rawContent: 'fldEIl9VdV3HOJJJ7'
-  }
-};
 
 async function airtableFetch(endpoint, method = 'GET', body = null) {
   const opts = {
@@ -51,18 +26,18 @@ async function airtableFetch(endpoint, method = 'GET', body = null) {
 
 async function getActiveSources() {
   const data = await airtableFetch(
-    `${TABLES.sources}?filterByFormula={Status}='Active'&fields[]=${FIELDS.sources.name}&fields[]=${FIELDS.sources.url}&fields[]=${FIELDS.sources.type}&fields[]=${FIELDS.sources.category}&fields[]=${FIELDS.sources.lastChecked}`
+    `${TABLES.sources}?filterByFormula=AND({Status}='Active',{Type}='RSS')&fields[]=Name&fields[]=URL&fields[]=Type&fields[]=Category`
   );
   return data.records || [];
 }
 
 async function getRecentSignalUrls() {
   const data = await airtableFetch(
-    `${TABLES.signals}?fields[]=${FIELDS.signals.sourceUrl}&sort[0][field]=${FIELDS.signals.detectedAt}&sort[0][direction]=desc&maxRecords=200`
+    `${TABLES.signals}?fields[]=Source+URL&sort[0][field]=Detected+At&sort[0][direction]=desc&maxRecords=200`
   );
   const urls = new Set();
   (data.records || []).forEach(r => {
-    const url = r.fields[FIELDS.signals.sourceUrl];
+    const url = r.fields['Source URL'];
     if (url) urls.add(url);
   });
   return urls;
@@ -79,7 +54,7 @@ async function updateSourceLastChecked(recordId) {
   return airtableFetch(TABLES.sources, 'PATCH', {
     records: [{
       id: recordId,
-      fields: { [FIELDS.sources.lastChecked]: new Date().toISOString() }
+      fields: { 'Last Checked': new Date().toISOString() }
     }]
   });
 }
@@ -134,8 +109,8 @@ Rules:
 }
 
 async function collectFromRSS(source, existingUrls) {
-  const url = source.fields[FIELDS.sources.url];
-  const name = source.fields[FIELDS.sources.name];
+  const url = source.fields['URL'];
+  const name = source.fields['Name'];
   if (!url) return [];
 
   let feed;
@@ -162,22 +137,22 @@ async function collectFromRSS(source, existingUrls) {
     if (analysis.relevance < 3) continue;
 
     const signal = {
-      [FIELDS.signals.title]: title.substring(0, 250),
-      [FIELDS.signals.summary]: analysis.summary || '',
-      [FIELDS.signals.sourceName]: name,
-      [FIELDS.signals.signalType]: analysis.signalType || 'Industry News',
-      [FIELDS.signals.sourceUrl]: link,
-      [FIELDS.signals.detectedAt]: new Date().toISOString(),
-      [FIELDS.signals.relevance]: analysis.relevance || 5,
-      [FIELDS.signals.processed]: false,
-      [FIELDS.signals.rawContent]: content.substring(0, 2000)
+      'Title': title.substring(0, 250),
+      'Summary': analysis.summary || '',
+      'Source Name': name,
+      'Signal Type': analysis.signalType || 'Industry News',
+      'Source URL': link,
+      'Detected At': new Date().toISOString(),
+      'Relevance Score': analysis.relevance || 5,
+      'Processed': false,
+      'Raw Content': content.substring(0, 2000)
     };
 
     if (analysis.destinations && analysis.destinations.length > 0) {
-      signal[FIELDS.signals.destinations] = analysis.destinations.slice(0, 5);
+      signal['Destinations'] = analysis.destinations.slice(0, 5);
     }
     if (analysis.airlines && analysis.airlines.length > 0) {
-      signal[FIELDS.signals.airlines] = analysis.airlines.slice(0, 5);
+      signal['Airlines'] = analysis.airlines.slice(0, 5);
     }
 
     signals.push(signal);
@@ -201,21 +176,16 @@ module.exports = async function handler(req, res) {
       getRecentSignalUrls()
     ]);
 
-    const rssSources = sources.filter(s =>
-      s.fields[FIELDS.sources.type]?.name === 'RSS' ||
-      s.fields[FIELDS.sources.type] === 'RSS'
-    );
+    console.log(`Found ${sources.length} active RSS sources, ${existingUrls.size} existing signal URLs`);
 
-    console.log(`Found ${rssSources.length} active RSS sources, ${existingUrls.size} existing signal URLs`);
-
-    for (const source of rssSources) {
-      const name = source.fields[FIELDS.sources.name];
+    for (const source of sources) {
+      const name = source.fields['Name'];
       try {
         const signals = await collectFromRSS(source, existingUrls);
 
         for (const signal of signals) {
           await createSignal(signal);
-          existingUrls.add(signal[FIELDS.signals.sourceUrl]);
+          existingUrls.add(signal['Source URL']);
           results.signalsCreated++;
         }
 
