@@ -16,6 +16,9 @@
   @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
   .info { margin-top: 24px; font-size: 13px; color: #64748B; }
 </style>
+<!-- Central auth gate. Bounces to id.travelify.io/signin.html if not signed in.
+     Gated by the luna_trends product permission. -->
+<script src="https://id.travelify.io/tg-auth-gate.js" data-product="luna_trends"></script>
 </head>
 <body>
   <div class="card">
