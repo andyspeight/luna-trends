@@ -138,7 +138,13 @@ Rules:
 }
 
 module.exports = async function handler(req, res) {
-  const secret = req.query?.secret || req.headers?.['x-cron-secret'];
+  // Accept the secret from Authorization: Bearer (Vercel cron sends this),
+  // ?secret= (manual runs), or x-cron-secret (programmatic). See collect.js
+  // for the full explanation — the old ${CRON_SECRET} path placeholder never
+  // worked because Vercel does not substitute env vars into cron paths.
+  const authHeader = req.headers?.['authorization'] || '';
+  const bearer = authHeader.startsWith('Bearer ') ? authHeader.slice(7) : '';
+  const secret = bearer || req.query?.secret || req.headers?.['x-cron-secret'];
   if (secret !== process.env.CRON_SECRET) {
     return res.status(401).json({ error: 'Unauthorized' });
   }
