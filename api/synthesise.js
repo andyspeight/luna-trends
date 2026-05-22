@@ -118,11 +118,11 @@ Respond with this exact JSON structure:
 }
 
 Rules:
-- Only create trends with 2+ supporting signals, OR a single signal with relevance 8+
+- Prefer trends with 2+ supporting signals. When the signal pool is thin (fewer than ~15 signals), a SINGLE signal with relevance 6+ may become its own trend rather than returning nothing. Do not force unrelated signals together just to reach 2.
 - compositeScore is 1-10 where 10 = massive opportunity for UK travel agents
-- Group signals about the same destination, airline, or theme together
+- Group signals about the same destination, airline, or theme together when they genuinely relate
 - Marketing actions must be specific and actionable, not generic
-- If there are no meaningful trends, return {"trends": []}`
+- Aim to return at least one trend if any signal is genuinely relevant to UK travel agents. Only return {"trends": []} if NONE of the signals are usable.`
       }]
     })
   });
