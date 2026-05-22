@@ -121,13 +121,13 @@ async function collectFromRSS(source, existingUrls) {
     return [];
   }
 
-  const newItems = (feed.items || []).slice(0, 10).filter(item => {
+  const newItems = (feed.items || []).slice(0, 20).filter(item => {
     const link = item.link || item.guid || '';
     return link && !existingUrls.has(link);
   });
 
   const signals = [];
-  for (const item of newItems.slice(0, 3)) {
+  for (const item of newItems.slice(0, 8)) {
     const title = item.title || 'Untitled';
     const content = item.contentSnippet || item.content || item.description || '';
     const link = item.link || item.guid || '';
