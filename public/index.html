@@ -1,1176 +1,497 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Travelgenix Tool Hub</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%231B2B5B'/><path d='M16 6L6 11l10 5 10-5-10-5z' fill='none' stroke='%2300B4D8' stroke-width='1.5'/><path d='M6 21l10 5 10-5M6 16l10 5 10-5' fill='none' stroke='%2300B4D8' stroke-width='1.5'/></svg>">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<title>Luna Trends — Travelgenix</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%231B2B5B'/><path d='M6 22l6-7 4 4 6-9' fill='none' stroke='%2300B4D8' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/></svg>">
 <style>
-  /* ═══════════════════════════════════════════════════════
-     TRAVELGENIX DESIGN SYSTEM — Full Token Architecture
-     Source: /mnt/skills/user/travelgenix-design/SKILL.md
-     Light default. Dark via data-theme="dark". 4px grid.
-     ═══════════════════════════════════════════════════════ */
   :root {
-    /* Core brand */
-    --tg-primary: #1B2B5B;
-    --tg-primary-light: #2A3F7A;
-    --tg-primary-dark: #111D3E;
-
-    /* Accent */
-    --tg-accent: #00B4D8;
-    --tg-accent-light: #48CAE4;
-    --tg-accent-dark: #0096B7;
-    --tg-accent-bg: rgba(0, 180, 216, 0.08);
-    --tg-accent-border: rgba(0, 180, 216, 0.2);
-    --tg-accent-glow: rgba(0, 180, 216, 0.15);
-
-    /* Semantic */
-    --tg-success: #10B981;
-    --tg-warning: #F59E0B;
-    --tg-error: #EF4444;
-    --tg-info: #3B82F6;
-
-    /* Surfaces */
-    --tg-bg-primary: #FFFFFF;
-    --tg-bg-secondary: #F8FAFC;
-    --tg-bg-tertiary: #F1F5F9;
-    --tg-border: #E2E8F0;
-    --tg-border-light: #F1F5F9;
-
-    /* Text */
-    --tg-text-primary: #0F172A;
-    --tg-text-secondary: #475569;
-    --tg-text-tertiary: #94A3B8;
+    --tg-primary: #1B2B5B; --tg-primary-light: #2A3F7A; --tg-primary-dark: #111D3E;
+    --tg-accent: #00B4D8; --tg-accent-light: #48CAE4; --tg-accent-dark: #0096B7;
+    --tg-success: #10B981; --tg-warning: #F59E0B; --tg-error: #EF4444; --tg-info: #3B82F6;
+    --tg-bg-primary: #FFFFFF; --tg-bg-secondary: #F8FAFC; --tg-bg-tertiary: #F1F5F9;
+    --tg-border: #E2E8F0; --tg-border-light: #F1F5F9;
+    --tg-text-primary: #0F172A; --tg-text-secondary: #475569; --tg-text-tertiary: #94A3B8;
     --tg-text-inverse: #FFFFFF;
-
-    /* Typography — Inter is the Travelgenix brand font */
-    --tg-font-display: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    --tg-font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    --tg-font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
-
-    /* Type Scale — from design system, no arbitrary sizes */
-    --text-xs: 11px;
-    --text-sm: 13px;
-    --text-base: 15px;
-    --text-md: 16px;
-    --text-lg: 18px;
-    --text-xl: 22px;
-    --text-2xl: 28px;
-    --text-3xl: 36px;
-
-    /* Spacing — 4px base grid, multiples only */
-    --space-1: 4px;
-    --space-2: 8px;
-    --space-3: 12px;
-    --space-4: 16px;
-    --space-5: 20px;
-    --space-6: 24px;
-    --space-8: 32px;
-    --space-10: 40px;
-    --space-12: 48px;
-    --space-16: 64px;
-
-    /* Radius — token system */
-    --radius-sm: 6px;
-    --radius-md: 8px;
-    --radius-lg: 12px;
-    --radius-xl: 16px;
-    --radius-2xl: 20px;
-    --radius-full: 9999px;
-
-    /* Shadows — elevation system */
-    --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
-    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.06), 0 2px 4px rgba(0, 0, 0, 0.04);
-    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.08), 0 4px 6px rgba(0, 0, 0, 0.04);
-    --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.08), 0 10px 10px rgba(0, 0, 0, 0.04);
-
-    /* Sidebar — always navy brand, both themes */
-    --sidebar-bg: var(--tg-primary);
-    --sidebar-text: rgba(255, 255, 255, 0.65);
-    --sidebar-text-active: #FFFFFF;
-    --sidebar-hover: rgba(255, 255, 255, 0.07);
-    --sidebar-active-bg: rgba(0, 180, 216, 0.15);
-    --sidebar-border: rgba(255, 255, 255, 0.07);
+    --radius-sm: 6px; --radius-md: 8px; --radius-lg: 12px; --radius-xl: 16px; --radius-2xl: 20px; --radius-full: 9999px;
+    --shadow-xs: 0 1px 2px rgba(0,0,0,.05);
+    --shadow-sm: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.04);
+    --shadow-md: 0 4px 6px rgba(0,0,0,.06), 0 2px 4px rgba(0,0,0,.04);
+    --shadow-lg: 0 10px 15px rgba(0,0,0,.08), 0 4px 6px rgba(0,0,0,.04);
+    --shadow-xl: 0 20px 25px rgba(0,0,0,.08), 0 10px 10px rgba(0,0,0,.04);
+    --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
   }
-
-  /* ─── Dark Mode ─── */
   [data-theme="dark"] {
-    --tg-bg-primary: #0F172A;
-    --tg-bg-secondary: #1E293B;
-    --tg-bg-tertiary: #334155;
-    --tg-border: #334155;
-    --tg-border-light: #1E293B;
-    --tg-text-primary: #F8FAFC;
-    --tg-text-secondary: #CBD5E1;
-    --tg-text-tertiary: #64748B;
-    --tg-accent-bg: rgba(0, 180, 216, 0.12);
-    --tg-accent-border: rgba(0, 180, 216, 0.25);
-    --tg-accent-glow: rgba(0, 180, 216, 0.2);
-    --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.2);
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
-    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.25), 0 2px 4px rgba(0, 0, 0, 0.2);
-    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.3), 0 4px 6px rgba(0, 0, 0, 0.2);
-    --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.3), 0 10px 10px rgba(0, 0, 0, 0.2);
-    --sidebar-bg: #0B1222;
+    --tg-bg-primary: #0F172A; --tg-bg-secondary: #1E293B; --tg-bg-tertiary: #334155;
+    --tg-border: #334155; --tg-border-light: #1E293B;
+    --tg-text-primary: #F8FAFC; --tg-text-secondary: #CBD5E1; --tg-text-tertiary: #64748B;
   }
-
-  /* ─── Reset ─── */
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { font-size: var(--text-base); }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
   body {
-    font-family: var(--tg-font-body);
-    background: var(--tg-bg-secondary);
-    color: var(--tg-text-primary);
-    min-height: 100vh;
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-    transition: background 0.3s ease, color 0.3s ease;
+    font-family: var(--font); background: var(--tg-bg-secondary); color: var(--tg-text-primary);
+    font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+    transition: background .3s ease, color .3s ease;
   }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
 
-  /* ═══════════════════════════════════════════════════════
-     LOGIN GATE — Refined, branded, with subtle depth
-     Kept for reference; never displayed under the new central
-     auth model (the gate redirects unauthenticated users away
-     to id.travelify.io before this page renders).
-     ═══════════════════════════════════════════════════════ */
-  #login-gate {
-    position: fixed;
-    inset: 0;
-    background: var(--tg-primary);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 100;
-    transition: opacity 0.4s ease, visibility 0.4s ease;
-    overflow: hidden;
-  }
-
-  /* Subtle geometric background — not flat */
-  #login-gate::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse at 20% 50%, rgba(0, 180, 216, 0.08) 0%, transparent 50%),
-      radial-gradient(ellipse at 80% 20%, rgba(0, 180, 216, 0.05) 0%, transparent 40%),
-      radial-gradient(ellipse at 50% 80%, rgba(0, 119, 182, 0.06) 0%, transparent 45%);
-    pointer-events: none;
-  }
-
-  #login-gate.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-
-  .login-box {
-    width: 380px;
-    max-width: 90vw;
-    text-align: center;
-    position: relative;
-    z-index: 1;
-    animation: loginReveal 0.6s ease-out;
-  }
-
-  @keyframes loginReveal {
-    from { opacity: 0; transform: translateY(12px) scale(0.98); }
-    to { opacity: 1; transform: translateY(0) scale(1); }
-  }
-
-  .login-logo {
-    width: 64px;
-    height: 64px;
-    background: linear-gradient(135deg, var(--tg-accent), var(--tg-accent-dark));
-    border-radius: var(--radius-lg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto var(--space-6);
-    box-shadow: 0 8px 32px rgba(0, 180, 216, 0.25);
-  }
-
-  .login-logo svg {
-    width: 36px; height: 36px;
-    stroke: white; fill: none;
-    stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
-  }
-
-  .login-title {
-    font-size: var(--text-2xl);
-    font-weight: 700;
-    color: white;
-    margin-bottom: var(--space-1);
-    letter-spacing: -0.03em;
-  }
-
-  .login-sub {
-    font-size: var(--text-xs);
-    color: rgba(255, 255, 255, 0.4);
-    margin-bottom: var(--space-8);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    font-weight: 600;
-  }
-
-  .login-field { position: relative; margin-bottom: var(--space-4); }
-
-  .login-field input {
-    width: 100%;
-    height: 48px;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: var(--radius-md);
-    padding: 0 var(--space-4);
-    font-size: var(--text-base);
-    color: white;
-    font-family: var(--tg-font-body);
-    transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
-    outline: none;
-  }
-
-  .login-field input::placeholder { color: rgba(255, 255, 255, 0.3); }
-
-  .login-field input:focus {
-    border-color: var(--tg-accent);
-    background: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 0 0 3px rgba(0, 180, 216, 0.15);
-  }
-
-  .login-btn {
-    width: 100%;
-    height: 48px;
-    background: var(--tg-accent);
-    border: none;
-    border-radius: var(--radius-md);
-    color: white;
-    font-size: var(--text-base);
-    font-weight: 600;
-    cursor: pointer;
-    font-family: var(--tg-font-body);
-    transition: background 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
-  }
-
-  .login-btn:hover {
-    background: var(--tg-accent-dark);
-    box-shadow: 0 4px 16px rgba(0, 180, 216, 0.3);
-  }
-
-  .login-btn:active { transform: scale(0.98); }
-  .login-btn:focus-visible { outline: 2px solid white; outline-offset: 2px; }
-
-  .login-error {
-    color: var(--tg-error);
-    font-size: var(--text-sm);
-    font-weight: 500;
-    margin-top: var(--space-4);
-    min-height: 20px;
-    transition: opacity 0.2s ease;
-  }
-
-  /* ═══════════════════════════════════════════════════════
-     APP SHELL
-     ═══════════════════════════════════════════════════════ */
-  #app { display: none; min-height: 100vh; }
-  #app.visible { display: flex; }
-
-  /* ─── Top Bar ─── */
+  /* ---------- Top bar ---------- */
   .topbar {
-    position: fixed;
-    top: 0;
-    left: 264px;
-    right: 0;
-    height: 56px;
-    background: var(--tg-bg-primary);
-    border-bottom: 1px solid var(--tg-border);
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    padding: 0 var(--space-8);
-    z-index: 10;
-    gap: var(--space-3);
-    transition: background 0.3s ease, border-color 0.3s ease;
-  }
-
-  .topbar-user {
-    font-size: var(--text-sm);
-    font-weight: 500;
-    color: var(--tg-text-secondary);
-  }
-
-  .topbar-logout {
-    height: 36px;
-    padding: 0 var(--space-4);
-    background: transparent;
-    border: 1px solid var(--tg-border);
-    border-radius: var(--radius-md);
-    color: var(--tg-text-secondary);
-    font-size: var(--text-sm);
-    font-weight: 500;
-    cursor: pointer;
-    font-family: var(--tg-font-body);
-    transition: all 0.15s ease;
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-  }
-
-  .topbar-logout:hover {
-    border-color: var(--tg-error);
-    color: var(--tg-error);
-    background: rgba(239, 68, 68, 0.06);
-  }
-
-  .topbar-logout:focus-visible { outline: 2px solid var(--tg-accent); outline-offset: 2px; }
-  .topbar-logout svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-
-  /* ═══════════════════════════════════════════════════════
-     SIDEBAR — Navy brand, consistent both themes
-     ═══════════════════════════════════════════════════════ */
-  .sidebar {
-    width: 264px;
-    min-height: 100vh;
-    background: var(--sidebar-bg);
-    display: flex;
-    flex-direction: column;
-    position: fixed;
-    top: 0; left: 0;
-    z-index: 20;
-    transition: transform 0.3s ease;
-  }
-
-  .sidebar-header {
-    padding: var(--space-6) var(--space-5) var(--space-5);
-    border-bottom: 1px solid var(--sidebar-border);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .sidebar-brand { display: flex; align-items: center; gap: var(--space-3); }
-
-  .brand-icon {
-    width: 36px; height: 36px;
-    background: linear-gradient(135deg, var(--tg-accent), var(--tg-accent-dark));
-    border-radius: var(--radius-md);
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-  }
-
-  .brand-icon svg { width: 20px; height: 20px; stroke: white; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-  .brand-title { font-size: var(--text-md); font-weight: 700; color: var(--sidebar-text-active); letter-spacing: -0.02em; }
-  .brand-sub { font-size: var(--text-xs); font-weight: 600; color: var(--sidebar-text); text-transform: uppercase; letter-spacing: 0.06em; }
-
-  /* Theme toggle */
-  .theme-toggle {
-    width: 36px; height: 36px;
-    border-radius: var(--radius-md);
-    background: var(--sidebar-hover);
-    border: 1px solid var(--sidebar-border);
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: background 0.15s ease;
-  }
-
-  .theme-toggle:hover { background: rgba(255, 255, 255, 0.12); }
-  .theme-toggle:focus-visible { outline: 2px solid var(--tg-accent); outline-offset: 2px; }
-  .theme-toggle svg { width: 18px; height: 18px; stroke: var(--sidebar-text); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-  .theme-toggle .icon-moon { display: block; }
-  .theme-toggle .icon-sun { display: none; }
-  [data-theme="dark"] .theme-toggle .icon-moon { display: none; }
-  [data-theme="dark"] .theme-toggle .icon-sun { display: block; }
-
-  /* Nav */
-  .sidebar-nav { flex: 1; padding: var(--space-4) var(--space-3); overflow-y: auto; }
-
-  .nav-section-label {
-    font-size: var(--text-xs); font-weight: 600;
-    text-transform: uppercase; letter-spacing: 0.08em;
-    color: var(--sidebar-text);
-    padding: var(--space-2) var(--space-3) var(--space-1);
-    margin-top: var(--space-5);
-  }
-
-  .nav-section-label:first-child { margin-top: 0; }
-
-  .nav-item {
-    display: flex; align-items: center; gap: var(--space-3);
-    padding: var(--space-3);
-    border-radius: var(--radius-md);
-    cursor: pointer;
-    transition: background 0.15s ease, border-color 0.15s ease;
-    border: 1px solid transparent;
-    min-height: 44px;
-  }
-
-  .nav-item:hover { background: var(--sidebar-hover); }
-  .nav-item:focus-visible { outline: 2px solid var(--tg-accent); outline-offset: -2px; }
-
-  .nav-item.active {
-    background: var(--sidebar-active-bg);
-    border-color: var(--tg-accent-border);
-  }
-
-  .nav-item.active .nav-label { color: var(--sidebar-text-active); font-weight: 600; }
-  .nav-item.active .nav-icon svg { stroke: var(--tg-accent); }
-
-  .nav-icon { width: 20px; height: 20px; flex-shrink: 0; }
-  .nav-icon svg { width: 20px; height: 20px; stroke: var(--sidebar-text); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.15s ease; }
-  .nav-label { font-size: var(--text-sm); font-weight: 500; color: var(--sidebar-text); transition: color 0.15s ease; }
-
-  .nav-status { margin-left: auto; width: 8px; height: 8px; border-radius: var(--radius-full); flex-shrink: 0; }
-  .nav-status.live { background: var(--tg-success); box-shadow: 0 0 8px rgba(16, 185, 129, 0.4); }
-  .nav-status.building { background: var(--tg-warning); box-shadow: 0 0 8px rgba(245, 158, 11, 0.4); }
-
-  .sidebar-footer {
-    padding: var(--space-4) var(--space-5);
-    border-top: 1px solid var(--sidebar-border);
-    font-size: var(--text-xs); color: var(--sidebar-text); line-height: 1.5;
-  }
-
-  /* ═══════════════════════════════════════════════════════
-     MOBILE
-     ═══════════════════════════════════════════════════════ */
-  .mobile-toggle {
-    display: none;
-    position: fixed; top: var(--space-4); left: var(--space-4);
-    z-index: 30; width: 44px; height: 44px;
-    border-radius: var(--radius-md);
-    background: var(--tg-bg-primary);
-    border: 1px solid var(--tg-border);
-    cursor: pointer; align-items: center; justify-content: center;
-    box-shadow: var(--shadow-sm);
-  }
-
-  .mobile-toggle:focus-visible { outline: 2px solid var(--tg-accent); outline-offset: 2px; }
-  .mobile-toggle svg { width: 20px; height: 20px; stroke: var(--tg-text-primary); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-
-  .mobile-overlay {
-    display: none; position: fixed; inset: 0;
-    background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(4px);
-    z-index: 15;
-  }
-
-  .mobile-overlay.show { display: block; }
-
-  /* ═══════════════════════════════════════════════════════
-     MAIN CONTENT — 1440px target
-     ═══════════════════════════════════════════════════════ */
-  .main {
-    margin-left: 264px;
-    flex: 1;
-    min-height: 100vh;
-    padding: 88px var(--space-10) var(--space-10);
-    max-width: 1180px;
-  }
-
-  /* Tool views with staggered card entrance */
-  .tool-view { display: none; }
-  .tool-view.active { display: block; }
-
-  .tool-view.active .tool-header { animation: revealUp 0.3s ease-out both; }
-  .tool-view.active .cards-grid > *:nth-child(1) { animation: revealUp 0.3s ease-out 0.05s both; }
-  .tool-view.active .cards-grid > *:nth-child(2) { animation: revealUp 0.3s ease-out 0.1s both; }
-  .tool-view.active .cards-grid > *:nth-child(3) { animation: revealUp 0.3s ease-out 0.15s both; }
-  .tool-view.active .cards-grid > *:nth-child(4) { animation: revealUp 0.3s ease-out 0.2s both; }
-  .tool-view.active .notes-block { animation: revealUp 0.3s ease-out 0.25s both; }
-
-  @keyframes revealUp {
-    from { opacity: 0; transform: translateY(12px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* ─── Tool Header ─── */
-  .tool-header {
-    display: flex; align-items: flex-start; gap: var(--space-5);
-    margin-bottom: var(--space-8);
-  }
-
-  .tool-icon-lg {
-    width: 56px; height: 56px;
-    border-radius: var(--radius-lg);
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-  }
-
-  .tool-icon-lg svg { width: 28px; height: 28px; stroke: white; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-
-  .tool-title {
-    font-size: var(--text-2xl); font-weight: 700;
-    letter-spacing: -0.03em; line-height: 1.2;
-    color: var(--tg-text-primary);
-  }
-
-  .tool-subtitle {
-    font-size: var(--text-base); color: var(--tg-text-secondary);
-    margin-top: var(--space-1); max-width: 640px; line-height: 1.6;
-  }
-
-  .status-badge {
-    display: inline-flex; align-items: center; gap: var(--space-2);
-    padding: var(--space-1) var(--space-3);
-    border-radius: var(--radius-full);
-    font-size: var(--text-xs); font-weight: 600;
-    margin-top: var(--space-3);
-  }
-
-  .status-badge.live { background: rgba(16, 185, 129, 0.1); color: var(--tg-success); }
-  .status-badge.building { background: rgba(245, 158, 11, 0.1); color: var(--tg-warning); }
-
-  .status-dot { width: 6px; height: 6px; border-radius: var(--radius-full); background: currentColor; }
-
-  /* Open Tool CTA */
-  .open-tool-btn {
-    display: inline-flex; align-items: center; gap: var(--space-2);
-    padding: var(--space-2) var(--space-5);
-    background: var(--tg-accent);
-    border: none; border-radius: var(--radius-md);
-    color: white;
-    font-size: var(--text-sm); font-weight: 600;
-    cursor: pointer;
-    min-height: 44px;
-    font-family: var(--tg-font-body);
-    text-decoration: none;
-    margin-top: var(--space-3);
-    transition: background 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
-  }
-
-  .open-tool-btn:hover { background: var(--tg-accent-dark); box-shadow: 0 4px 12px var(--tg-accent-glow); }
-  .open-tool-btn:active { transform: scale(0.97); }
-  .open-tool-btn:focus-visible { outline: 2px solid var(--tg-accent); outline-offset: 2px; }
-  .open-tool-btn svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-  .open-tool-btn.disabled { opacity: 0.4; cursor: default; pointer-events: none; background: var(--tg-text-tertiary); }
-
-  /* ─── Cards ─── */
-  .cards-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-    gap: var(--space-5);
-    margin-bottom: var(--space-6);
-  }
-
-  .card {
-    background: var(--tg-bg-primary);
-    border: 1px solid var(--tg-border);
-    border-radius: var(--radius-lg);
-    padding: var(--space-6);
-    box-shadow: var(--shadow-xs);
-    transition: border-color 0.2s ease-out, box-shadow 0.2s ease-out, transform 0.2s ease-out;
-  }
-
-  .card:hover {
-    border-color: var(--tg-accent-border);
+    position: sticky; top: 0; z-index: 10; display: flex; align-items: center; gap: 16px;
+    padding: 16px 24px; background: var(--tg-primary); color: var(--tg-text-inverse);
     box-shadow: var(--shadow-md);
-    transform: translateY(-2px);
   }
-
-  .card-label {
-    font-size: var(--text-xs); font-weight: 600;
-    text-transform: uppercase; letter-spacing: 0.08em;
-    color: var(--tg-text-tertiary);
-    margin-bottom: var(--space-4);
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .brand-logo {
+    width: 40px; height: 40px; border-radius: var(--radius-md); background: rgba(255,255,255,.08);
+    display: grid; place-items: center; flex-shrink: 0;
   }
-
-  .card-full { grid-column: 1 / -1; }
-
-  /* ─── Credentials ─── */
-  .cred-row {
-    display: flex; align-items: center; gap: var(--space-3);
-    padding: var(--space-2) 0;
-    border-bottom: 1px solid var(--tg-border-light);
-    min-height: 44px;
+  .brand-text h1 { font-size: 18px; font-weight: 700; letter-spacing: -.01em; line-height: 1.2; }
+  .brand-text p { font-size: 11px; color: var(--tg-accent-light); font-weight: 500; letter-spacing: .04em; text-transform: uppercase; }
+  .topbar-spacer { flex: 1; }
+  .icon-btn {
+    width: 40px; height: 40px; border-radius: var(--radius-md); border: none; cursor: pointer;
+    background: rgba(255,255,255,.08); color: var(--tg-text-inverse); display: grid; place-items: center;
+    transition: background .15s ease;
   }
+  .icon-btn:hover { background: rgba(255,255,255,.16); }
+  .icon-btn:focus-visible { outline: 3px solid var(--tg-accent); outline-offset: 2px; }
 
-  .cred-row:last-child { border-bottom: none; }
+  /* ---------- Layout ---------- */
+  .wrap { max-width: 1440px; margin: 0 auto; padding: 24px; }
+  .updated { font-size: 13px; color: var(--tg-text-tertiary); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
 
-  .cred-label {
-    font-size: var(--text-xs); font-weight: 600;
-    color: var(--tg-text-tertiary);
-    width: 80px; flex-shrink: 0;
-    text-transform: uppercase; letter-spacing: 0.04em;
+  /* ---------- Stat cards ---------- */
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; margin-bottom: 32px; }
+  .stat {
+    background: var(--tg-bg-primary); border: 1px solid var(--tg-border); border-radius: var(--radius-lg);
+    padding: 20px; box-shadow: var(--shadow-sm);
   }
+  .stat .label { font-size: 13px; color: var(--tg-text-secondary); font-weight: 500; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+  .stat .value { font-size: 28px; font-weight: 700; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+  .stat .sub { font-size: 13px; color: var(--tg-text-tertiary); margin-top: 2px; }
+  .stat.accent .value { color: var(--tg-accent-dark); }
 
-  .cred-value {
-    font-family: var(--tg-font-mono);
-    font-size: var(--text-sm);
-    color: var(--tg-text-primary);
-    flex: 1; word-break: break-all;
+  /* ---------- Tabs ---------- */
+  .tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--tg-border); margin-bottom: 24px; overflow-x: auto; }
+  .tab {
+    padding: 12px 16px; border: none; background: none; cursor: pointer; font-family: var(--font);
+    font-size: 15px; font-weight: 500; color: var(--tg-text-secondary); border-bottom: 2px solid transparent;
+    white-space: nowrap; display: flex; align-items: center; gap: 8px; transition: color .15s ease;
   }
+  .tab:hover { color: var(--tg-text-primary); }
+  .tab[aria-selected="true"] { color: var(--tg-accent-dark); border-bottom-color: var(--tg-accent); }
+  .tab:focus-visible { outline: 3px solid var(--tg-accent); outline-offset: -3px; border-radius: var(--radius-sm); }
+  .tab .count { font-size: 12px; background: var(--tg-bg-tertiary); color: var(--tg-text-secondary); padding: 1px 8px; border-radius: var(--radius-full); font-variant-numeric: tabular-nums; }
 
-  .cred-value.tb { font-family: var(--tg-font-body); }
-
-  .cred-value a {
-    color: var(--tg-accent-dark);
-    text-decoration: none;
-    border-bottom: 1px solid transparent;
-    transition: border-color 0.15s ease;
+  /* ---------- Section header + actions ---------- */
+  .section-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
+  .section-head h2 { font-size: 22px; font-weight: 600; letter-spacing: -.01em; }
+  .actions { display: flex; gap: 8px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px; padding: 0 16px; height: 40px; border-radius: var(--radius-md);
+    font-family: var(--font); font-size: 14px; font-weight: 600; cursor: pointer; border: 1px solid transparent;
+    transition: background .15s ease, transform .1s ease; white-space: nowrap;
   }
+  .btn:active { transform: scale(.98); }
+  .btn:focus-visible { outline: 3px solid var(--tg-accent); outline-offset: 2px; }
+  .btn-primary { background: var(--tg-accent); color: #fff; }
+  .btn-primary:hover { background: var(--tg-accent-dark); }
+  .btn-secondary { background: var(--tg-bg-primary); color: var(--tg-text-primary); border-color: var(--tg-border); }
+  .btn-secondary:hover { background: var(--tg-bg-tertiary); }
+  .btn:disabled { opacity: .55; cursor: not-allowed; }
 
-  .cred-value a:hover { border-bottom-color: var(--tg-accent-dark); }
-  [data-theme="dark"] .cred-value a { color: var(--tg-accent-light); }
-  [data-theme="dark"] .cred-value a:hover { border-bottom-color: var(--tg-accent-light); }
-  .cred-value.secret { filter: blur(5px); transition: filter 0.2s ease; cursor: pointer; user-select: none; }
-  .cred-value.secret.revealed { filter: none; user-select: auto; }
-  .cred-value.highlight { font-family: var(--tg-font-body); font-style: italic; color: var(--tg-accent-dark); }
-  [data-theme="dark"] .cred-value.highlight { color: var(--tg-accent-light); }
-
-  /* Copy button */
-  .btn-copy {
-    width: 32px; height: 32px;
-    border-radius: var(--radius-sm);
-    background: var(--tg-bg-tertiary);
-    border: 1px solid var(--tg-border);
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.15s ease;
-    flex-shrink: 0;
+  /* ---------- Trend cards ---------- */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px; }
+  .card {
+    background: var(--tg-bg-primary); border: 1px solid var(--tg-border); border-radius: var(--radius-xl);
+    padding: 24px; box-shadow: var(--shadow-sm); transition: box-shadow .2s ease, transform .2s ease;
+    display: flex; flex-direction: column;
   }
-
-  .btn-copy:hover { border-color: var(--tg-accent); background: var(--tg-accent-bg); }
-  .btn-copy:focus-visible { outline: 2px solid var(--tg-accent); outline-offset: 2px; }
-  .btn-copy:active { transform: scale(0.93); }
-  .btn-copy svg { width: 14px; height: 14px; stroke: var(--tg-text-tertiary); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.15s ease; }
-  .btn-copy:hover svg { stroke: var(--tg-accent); }
-  .btn-copy.copied svg { stroke: var(--tg-success); }
-
-  /* ─── Quick Links ─── */
-  .quick-links { display: flex; flex-wrap: wrap; gap: var(--space-2); }
-
-  .quick-link {
-    display: inline-flex; align-items: center; gap: var(--space-2);
-    padding: var(--space-2) var(--space-4);
-    background: var(--tg-bg-tertiary);
-    border: 1px solid var(--tg-border);
-    border-radius: var(--radius-md);
-    color: var(--tg-text-secondary);
-    text-decoration: none;
-    font-size: var(--text-sm); font-weight: 500;
-    min-height: 44px;
-    transition: all 0.15s ease;
-    cursor: pointer;
+  .card:hover { box-shadow: var(--shadow-lg); transform: translateY(-2px); }
+  .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+  .card h3 { font-size: 18px; font-weight: 600; letter-spacing: -.01em; line-height: 1.3; }
+  .score { font-size: 28px; font-weight: 700; letter-spacing: -.02em; font-variant-numeric: tabular-nums; line-height: 1; flex-shrink: 0; }
+  .score.high { color: var(--tg-success); } .score.mid { color: var(--tg-warning); } .score.low { color: var(--tg-text-tertiary); }
+  .card .desc { font-size: 14px; color: var(--tg-text-secondary); margin-bottom: 16px; flex: 1; }
+  .chips { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+  .chip {
+    font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: var(--radius-full);
+    background: var(--tg-bg-tertiary); color: var(--tg-text-secondary); display: inline-flex; align-items: center; gap: 4px;
   }
+  .chip.dir-rising { background: rgba(16,185,129,.12); color: var(--tg-success); }
+  .chip.dir-stable { background: rgba(245,158,11,.12); color: var(--tg-warning); }
+  .chip.dir-falling { background: rgba(239,68,68,.12); color: var(--tg-error); }
+  .chip.type { background: rgba(0,180,216,.12); color: var(--tg-accent-dark); }
+  .ma { border-top: 1px solid var(--tg-border-light); padding-top: 16px; margin-top: auto; }
+  .ma-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--tg-text-tertiary); margin-bottom: 10px; }
+  .ma-item { padding: 10px 12px; background: var(--tg-bg-secondary); border-radius: var(--radius-md); margin-bottom: 8px; }
+  .ma-item:last-child { margin-bottom: 0; }
+  .ma-item .ma-type { font-size: 11px; font-weight: 700; color: var(--tg-accent-dark); text-transform: uppercase; letter-spacing: .03em; }
+  .ma-item .ma-headline { font-size: 14px; font-weight: 600; margin: 2px 0; }
+  .ma-item .ma-brief { font-size: 13px; color: var(--tg-text-secondary); }
 
-  .quick-link:hover { border-color: var(--tg-accent); color: var(--tg-accent-dark); background: var(--tg-accent-bg); }
-  [data-theme="dark"] .quick-link:hover { color: var(--tg-accent-light); }
-  .quick-link:focus-visible { outline: 2px solid var(--tg-accent); outline-offset: 2px; }
-  .quick-link:active { transform: scale(0.97); }
-  .quick-link svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-  .quick-link.placeholder { opacity: 0.4; cursor: default; pointer-events: none; }
+  /* ---------- Signals + sources tables ---------- */
+  .list { background: var(--tg-bg-primary); border: 1px solid var(--tg-border); border-radius: var(--radius-lg); overflow: hidden; }
+  .row { display: flex; align-items: center; gap: 16px; padding: 14px 20px; border-bottom: 1px solid var(--tg-border-light); }
+  .row:last-child { border-bottom: none; }
+  .row .main { flex: 1; min-width: 0; }
+  .row .title { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+  .row .meta { font-size: 13px; color: var(--tg-text-tertiary); display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .row a { color: var(--tg-accent-dark); text-decoration: none; }
+  .row a:hover { text-decoration: underline; }
+  .dot { width: 8px; height: 8px; border-radius: var(--radius-full); flex-shrink: 0; }
+  .dot.green { background: var(--tg-success); } .dot.amber { background: var(--tg-warning); } .dot.gray { background: var(--tg-text-tertiary); } .dot.red { background: var(--tg-error); }
+  .rel { font-size: 13px; font-weight: 700; font-variant-numeric: tabular-nums; padding: 2px 8px; border-radius: var(--radius-sm); background: var(--tg-bg-tertiary); }
 
-  /* ─── Notes ─── */
-  .notes-block {
-    background: var(--tg-bg-primary);
-    border: 1px solid var(--tg-border);
-    border-radius: var(--radius-lg);
-    padding: var(--space-6);
-    box-shadow: var(--shadow-xs);
-  }
+  /* ---------- States ---------- */
+  .state { text-align: center; padding: 64px 24px; color: var(--tg-text-tertiary); }
+  .state svg { margin-bottom: 16px; opacity: .5; }
+  .state h3 { font-size: 18px; font-weight: 600; color: var(--tg-text-secondary); margin-bottom: 8px; }
+  .state p { font-size: 14px; max-width: 380px; margin: 0 auto; }
+  .skeleton { background: var(--tg-bg-primary); border: 1px solid var(--tg-border); border-radius: var(--radius-xl); padding: 24px; }
+  .shimmer { background: linear-gradient(90deg, var(--tg-bg-tertiary) 25%, var(--tg-border-light) 50%, var(--tg-bg-tertiary) 75%); background-size: 200% 100%; animation: shimmer 1.4s infinite; border-radius: var(--radius-sm); }
+  @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+  .sk-line { height: 12px; margin-bottom: 10px; }
+  .panel { display: none; } .panel.active { display: block; }
+  .spin { animation: spin 1s linear infinite; } @keyframes spin { to { transform: rotate(360deg); } }
 
-  .notes-block .card-label { margin-bottom: var(--space-3); }
-
-  .note-item {
-    display: flex; gap: var(--space-3);
-    padding: var(--space-1) 0;
-    font-size: var(--text-sm); color: var(--tg-text-secondary); line-height: 1.6;
-  }
-
-  .note-bullet { width: 6px; height: 6px; border-radius: var(--radius-full); background: var(--tg-accent); flex-shrink: 0; margin-top: 8px; }
-
-  .note-item code {
-    font-family: var(--tg-font-mono); font-size: var(--text-xs);
-    background: var(--tg-bg-tertiary); border: 1px solid var(--tg-border);
-    padding: 1px var(--space-1); border-radius: var(--radius-sm);
-    color: var(--tg-accent-dark);
-  }
-
-  [data-theme="dark"] .note-item code { color: var(--tg-accent-light); }
-
-  /* ─── Toast ─── */
-  .toast {
-    position: fixed; bottom: var(--space-6); right: var(--space-6);
-    background: var(--tg-bg-primary); border: 1px solid var(--tg-border);
-    border-radius: var(--radius-md);
-    padding: var(--space-3) var(--space-5);
-    font-size: var(--text-sm); font-weight: 500; color: var(--tg-success);
-    box-shadow: var(--shadow-lg);
-    opacity: 0; transform: translateY(8px);
-    transition: all 0.25s ease;
-    pointer-events: none; z-index: 50;
-  }
-
-  .toast.show { opacity: 1; transform: translateY(0); }
-
-  /* ═══════════════════════════════════════════════════════
-     RESPONSIVE — 1440 → 1024 → 768 → 375 → 320
-     ═══════════════════════════════════════════════════════ */
-  @media (max-width: 768px) {
-    .sidebar { transform: translateX(-100%); }
-    .sidebar.open { transform: translateX(0); box-shadow: 4px 0 24px rgba(0, 0, 0, 0.2); }
-    .mobile-toggle { display: flex; }
-    .topbar { left: 0; padding-left: 60px; }
-    .main { margin-left: 0; padding: 88px var(--space-4) var(--space-6); }
-    .cards-grid { grid-template-columns: 1fr; }
-    .tool-header { flex-direction: column; gap: var(--space-4); }
-  }
-
-  @media (min-width: 769px) and (max-width: 1024px) {
-    .sidebar { width: 224px; }
-    .main { margin-left: 224px; padding: 88px var(--space-6) var(--space-8); }
-    .topbar { left: 224px; }
-  }
-
-  /* Scrollbar */
-  ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: var(--tg-border); border-radius: 3px; }
-  ::-webkit-scrollbar-thumb:hover { background: var(--tg-text-tertiary); }
-
-  /* Reduced motion — respect prefers-reduced-motion */
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  @media (max-width: 640px) {
+    .wrap { padding: 16px; }
+    .topbar { padding: 12px 16px; }
+    .grid { grid-template-columns: 1fr; }
+    .brand-text h1 { font-size: 16px; }
   }
 </style>
-<!-- Central Travelgenix auth gate. Loads from id.travelify.io and validates
-     the .travelify.io session cookie. If not signed in, redirects to
-     id.travelify.io/signin.html. If signed in but missing the tool_hub
-     permission, shows a "no access" page. On success it fires
-     'tg-auth-ready' and we unlock the UI. -->
-<script src="https://id.travelify.io/tg-auth-gate.js" data-product="tool_hub"></script>
 </head>
 <body>
-
-<!-- ═══ LOGIN GATE — kept as fallback only; never displayed under central auth ═══ -->
-<div id="login-gate">
-  <div class="login-box">
-    <div class="login-logo"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
-    <div class="login-title">Tool Hub</div>
-    <div class="login-sub">Travelgenix</div>
-    <div class="login-field">
-      <input type="password" id="login-password" placeholder="Loading..." autocomplete="off" disabled>
-    </div>
-    <div class="login-error" id="login-error"></div>
-  </div>
-</div>
-
-<!-- ═══ APP SHELL ═══ -->
-<div id="app">
-  <div class="mobile-overlay" id="mobileOverlay" onclick="closeSidebar()"></div>
-  <button class="mobile-toggle" onclick="toggleSidebar()" aria-label="Open navigation"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
-
-  <div class="topbar">
-    <span class="topbar-user" id="topbarUser">Andy Speight</span>
-    <button class="topbar-logout" onclick="logout()"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Sign Out</button>
-  </div>
-
-  <aside class="sidebar" id="sidebar">
-    <div class="sidebar-header">
-      <div class="sidebar-brand">
-        <div class="brand-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
-        <div><div class="brand-title">Tool Hub</div><div class="brand-sub">Travelgenix</div></div>
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-logo" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00B4D8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-7 4 4 7-10"/></svg>
       </div>
-      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
-        <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-        <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      <div class="brand-text">
+        <h1>Luna Trends</h1>
+        <p>Travel Intelligence</p>
+      </div>
+    </div>
+    <div class="topbar-spacer"></div>
+    <button class="icon-btn" id="refreshBtn" aria-label="Refresh data" title="Refresh">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>
+    </button>
+    <button class="icon-btn" id="themeBtn" aria-label="Toggle dark mode" title="Toggle theme">
+      <svg id="themeIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </header>
+
+  <main class="wrap">
+    <div class="updated" id="updated" aria-live="polite"></div>
+
+    <section class="stats" id="stats" aria-label="Summary statistics"></section>
+
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" aria-selected="true" aria-controls="panel-trends" id="tab-trends" data-tab="trends">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-7 4 4 7-10"/><path d="M14 4h7v7"/></svg>
+        Trends <span class="count" id="ct-trends">0</span>
+      </button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="panel-signals" id="tab-signals" data-tab="signals" tabindex="-1">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h4l3 8 4-16 3 8h4"/></svg>
+        Signals <span class="count" id="ct-signals">0</span>
+      </button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="panel-sources" id="tab-sources" data-tab="sources" tabindex="-1">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg>
+        Sources <span class="count" id="ct-sources">0</span>
       </button>
     </div>
-    <nav class="sidebar-nav" role="navigation" aria-label="Tool navigation">
-      <div class="nav-section-label">Luna Suite</div>
-      <div class="nav-item active" data-tool="luna-brain" onclick="showTool(this)" tabindex="0" role="button"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M12 2a8 8 0 0 0-8 8c0 3.4 2.1 6.3 5 7.4V20a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-2.6c2.9-1.1 5-4 5-7.4a8 8 0 0 0-8-8z"/><line x1="9" y1="22" x2="15" y2="22"/></svg></span><span class="nav-label">Luna Brain</span><span class="nav-status live"></span></div>
-      <div class="nav-item" data-tool="luna-chat" onclick="showTool(this)" tabindex="0" role="button"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span><span class="nav-label">Luna Chat</span><span class="nav-status live"></span></div>
-      <div class="nav-item" data-tool="luna-marketing" onclick="showTool(this)" tabindex="0" role="button"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></span><span class="nav-label">Luna Marketing</span><span class="nav-status live"></span></div>
-      <div class="nav-item" data-tool="luna-onboarding" onclick="showTool(this)" tabindex="0" role="button"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span><span class="nav-label">Luna Onboarding</span><span class="nav-status building"></span></div>
-      <div class="nav-item" data-tool="luna-trends" onclick="showTool(this)" tabindex="0" role="button"><span class="nav-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span><span class="nav-label">Luna Trends</span><span class="nav-status building"></span></div>
-      <div class="nav-section-label">Sales &amp; Booking</div>
-      <div class="nav-item" data-tool="quick-quote" onclick="showTool(this)" tabindex="0" role="button"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span><span class="nav-label">Quick Quote</span><span class="nav-status building"></span></div>
-      <div class="nav-section-label">Knowledge &amp; Content</div>
-      <div class="nav-item" data-tool="knowledge-bot" onclick="showTool(this)" tabindex="0" role="button"><span class="nav-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span><span class="nav-label">Knowledge Bot</span><span class="nav-status live"></span></div>
-      <div class="nav-item" data-tool="destinations" onclick="showTool(this)" tabindex="0" role="button"><span class="nav-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="10" r="3"/><path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 7 8 11.7z"/></svg></span><span class="nav-label">Destinations DB</span><span class="nav-status live"></span></div>
-      <div class="nav-item" data-tool="lindos" onclick="showTool(this)" tabindex="0" role="button"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span><span class="nav-label">Exclusively Lindos</span><span class="nav-status live"></span></div>
-    </nav>
-    <div class="sidebar-footer">Private &middot; Andy Speight<br>Last updated April 2026</div>
-  </aside>
 
-  <main class="main">
+    <!-- TRENDS -->
+    <section class="panel active" id="panel-trends" role="tabpanel" aria-labelledby="tab-trends">
+      <div class="section-head">
+        <h2>Synthesised Trends</h2>
+        <div class="actions">
+          <button class="btn btn-secondary" id="collectBtn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m8 11 4 4 4-4"/><path d="M3 21h18"/></svg>
+            Run Collection
+          </button>
+          <button class="btn btn-primary" id="synthBtn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4"/><path d="M12 18v4"/><path d="m4.93 4.93 2.83 2.83"/><path d="m16.24 16.24 2.83 2.83"/><path d="M2 12h4"/><path d="M18 12h4"/><path d="m4.93 19.07 2.83-2.83"/><path d="m16.24 7.76 2.83-2.83"/></svg>
+            Run Synthesis
+          </button>
+        </div>
+      </div>
+      <div id="trends-body"></div>
+    </section>
 
-    <!-- ═══ LUNA BRAIN ═══ -->
-    <div class="tool-view active" id="luna-brain">
-      <div class="tool-header">
-        <div class="tool-icon-lg" style="background:linear-gradient(135deg,var(--tg-accent),var(--tg-accent-dark))"><svg viewBox="0 0 24 24"><path d="M12 2a8 8 0 0 0-8 8c0 3.4 2.1 6.3 5 7.4V20a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-2.6c2.9-1.1 5-4 5-7.4a8 8 0 0 0-8-8z"/><line x1="9" y1="22" x2="15" y2="22"/></svg></div>
-        <div>
-          <div class="tool-title">Luna Brain</div>
-          <div class="tool-subtitle">Client-facing AI knowledge chatbot with inline deep-link search. Airtable-backed knowledge base, Claude API responses, deployed as floating widget on client websites.</div>
-          <div class="status-badge live"><span class="status-dot"></span>Live</div>
-        </div>
-      </div>
-      <div class="cards-grid">
-        <div class="card"><div class="card-label">Airtable Base</div>
-          <div class="cred-row"><span class="cred-label">Base ID</span><span class="cred-value">appPKx77relfeiqmq</span><button class="btn-copy" onclick="cc('appPKx77relfeiqmq',this)" aria-label="Copy"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
-          <div class="cred-row"><span class="cred-label">Tables</span><span class="cred-value tb">Destinations (230), Knowledge (~229 Q&A), Transport (141)</span></div>
-        </div>
-        <div class="card"><div class="card-label">Search Integration</div>
-          <div class="cred-row"><span class="cred-label">Site ID</span><span class="cred-value">250</span><button class="btn-copy" onclick="cc('250',this)" aria-label="Copy"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
-          <div class="cred-row"><span class="cred-label">Base URL</span><span class="cred-value"><a href="https://dl.tvllnk.com/deeplink/250" target="_blank" rel="noopener">dl.tvllnk.com/deeplink/250</a></span></div>
-          <div class="cred-row"><span class="cred-label">Type</span><span class="cred-value">Packages</span><button class="btn-copy" onclick="cc('Packages',this)" aria-label="Copy"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
-        </div>
-        <div class="card card-full"><div class="card-label">Quick Links</div><div class="quick-links"><a class="quick-link" href="https://airtable.com/appPKx77relfeiqmq" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>Airtable Base</a></div></div>
-      </div>
-      <div class="notes-block"><div class="card-label">Key Notes</div>
-        <div class="note-item"><span class="note-bullet"></span><span>Widget architecture: Part A built dynamically, Part B always starts with closing <code>};</code> of LUNA_CONFIG</span></div>
-        <div class="note-item"><span class="note-bullet"></span><span>Setup wizard for non-technical clients with localStorage persistence and colour pickers</span></div>
-        <div class="note-item"><span class="note-bullet"></span><span>Search flow messages use class <code>m bot srch</code></span></div>
-        <div class="note-item"><span class="note-bullet"></span><span>Confirmed search type is "Packages" (not PackageHoliday or Package)</span></div>
-        <div class="note-item"><span class="note-bullet"></span><span>Anywhere-to-anywhere booking search — lat/lng URL templates, no hardcoded destination table</span></div>
-        <div class="note-item"><span class="note-bullet"></span><span>600+ travel knowledge records: 230 destinations, 229 Q&A, 141 transport</span></div>
-      </div>
-    </div>
+    <!-- SIGNALS -->
+    <section class="panel" id="panel-signals" role="tabpanel" aria-labelledby="tab-signals">
+      <div class="section-head"><h2>Recent Signals</h2></div>
+      <div id="signals-body"></div>
+    </section>
 
-    <!-- ═══ LUNA CHAT ═══ -->
-    <div class="tool-view" id="luna-chat">
-      <div class="tool-header">
-        <div class="tool-icon-lg" style="background:linear-gradient(135deg,var(--tg-info),#1D4ED8)"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
-        <div>
-          <div class="tool-title">Luna Chat</div>
-          <div class="tool-subtitle">AI-powered live chat with Ably real-time, human agent escalation, 600+ travel knowledge records, multilingual translation, booking search integration. Full agent dashboard with presence, canned responses, and analytics.</div>
-          <div class="status-badge live"><span class="status-dot"></span>Live</div>
-          <a class="open-tool-btn" href="https://chat.travelify.io/dashboard.html" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Open Agent Dashboard</a>
-        </div>
-      </div>
-      <div class="cards-grid">
-        <div class="card"><div class="card-label">Agent Dashboard</div>
-          <div class="cred-row"><span class="cred-label">URL</span><span class="cred-value"><a href="https://chat.travelify.io/dashboard.html" target="_blank" rel="noopener">chat.travelify.io/dashboard.html</a></span></div>
-          <div class="cred-row"><span class="cred-label">Auth</span><span class="cred-value tb">Central session via id.travelify.io</span></div>
-        </div>
-        <div class="card"><div class="card-label">Infrastructure</div>
-          <div class="cred-row"><span class="cred-label">GitHub</span><span class="cred-value"><a href="https://github.com/andyspeight/luna-chat-endpoint" target="_blank" rel="noopener">andyspeight/luna-chat-endpoint</a></span></div>
-          <div class="cred-row"><span class="cred-label">Hosting</span><span class="cred-value tb">Vercel (auto-deploy from GitHub)</span></div>
-          <div class="cred-row"><span class="cred-label">Real-time</span><span class="cred-value tb">Ably</span></div>
-          <div class="cred-row"><span class="cred-label">AI Model</span><span class="cred-value tb">Haiku (clients) / Sonnet (Travelgenix)</span></div>
-        </div>
-        <div class="card"><div class="card-label">Pages</div>
-          <div class="cred-row"><span class="cred-label">Dashboard</span><span class="cred-value"><a href="https://chat.travelify.io/dashboard.html" target="_blank" rel="noopener">dashboard.html</a></span></div>
-          <div class="cred-row"><span class="cred-label">Onboard</span><span class="cred-value"><a href="https://chat.travelify.io/onboard.html" target="_blank" rel="noopener">onboard.html</a></span></div>
-          <div class="cred-row"><span class="cred-label">Setup</span><span class="cred-value"><a href="https://chat.travelify.io/setup.html" target="_blank" rel="noopener">setup.html</a></span></div>
-          <div class="cred-row"><span class="cred-label">Widget</span><span class="cred-value"><a href="https://chat.travelify.io/widget-core.js" target="_blank" rel="noopener">widget-core.js</a></span></div>
-        </div>
-        <div class="card card-full"><div class="card-label">Quick Links</div><div class="quick-links">
-          <a class="quick-link" href="https://chat.travelify.io/dashboard.html" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>Agent Dashboard</a>
-          <a class="quick-link" href="https://chat.travelify.io/onboard.html" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>Onboarding Wizard</a>
-          <a class="quick-link" href="https://chat.travelify.io/setup.html" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83"/></svg>Setup Wizard</a>
-          <a class="quick-link" href="https://github.com/andyspeight/luna-chat-endpoint" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>GitHub</a>
-        </div></div>
-      </div>
-      <div class="notes-block"><div class="card-label">Key Notes</div>
-        <div class="note-item"><span class="note-bullet"></span><span>600+ travel knowledge records: 230 destinations, 229 Q&A, 141 transport</span></div>
-        <div class="note-item"><span class="note-bullet"></span><span>Ably channels: <code>luna-chat:{convId}</code>, <code>luna-dashboard</code>, <code>luna-agents</code></span></div>
-        <div class="note-item"><span class="note-bullet"></span><span>Anywhere-to-anywhere booking search — lat/lng URL templates, no hardcoded destination table</span></div>
-        <div class="note-item"><span class="note-bullet"></span><span>Multilingual: 20+ languages, bidirectional real-time translation</span></div>
-        <div class="note-item"><span class="note-bullet"></span><span>One-line widget embed: <code>&lt;script src=".../widget-core.js" data-client="..."&gt;</code></span></div>
-      </div>
-    </div>
-
-    <!-- ═══ LUNA MARKETING ═══ -->
-    <div class="tool-view" id="luna-marketing">
-      <div class="tool-header">
-        <div class="tool-icon-lg" style="background:linear-gradient(135deg,#8B5CF6,#6D28D9)"><svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></div>
-        <div>
-          <div class="tool-title">Luna Marketing</div>
-          <div class="tool-subtitle">Fully automated social media platform. 7-platform engine. Admin dashboard with calendar UI, review queue, website scanner.</div>
-          <div class="status-badge live"><span class="status-dot"></span>Live — Pending Integrations</div>
-          <a class="open-tool-btn" href="https://marketing.travelify.io" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Open Luna Marketing</a>
-        </div>
-      </div>
-      <div class="cards-grid">
-        <div class="card"><div class="card-label">Client Portal</div>
-          <div class="cred-row"><span class="cred-label">URL</span><span class="cred-value"><a href="https://marketing.travelify.io/client.html" target="_blank" rel="noopener">marketing.travelify.io/client.html</a></span></div>
-          <div class="cred-row"><span class="cred-label">Auth</span><span class="cred-value tb">Central session via id.travelify.io</span></div>
-        </div>
-        <div class="card"><div class="card-label">Admin Access</div>
-          <div class="cred-row"><span class="cred-label">URL</span><span class="cred-value"><a href="https://marketing.travelify.io/admin.html" target="_blank" rel="noopener">marketing.travelify.io/admin.html</a></span></div>
-          <div class="cred-row"><span class="cred-label">Auth</span><span class="cred-value tb">Central session, owner or admin role</span></div>
-        </div>
-        <div class="card"><div class="card-label">Infrastructure</div>
-          <div class="cred-row"><span class="cred-label">Airtable</span><span class="cred-value">appSoIlSe0sNaJ4BZ</span><button class="btn-copy" onclick="cc('appSoIlSe0sNaJ4BZ',this)" aria-label="Copy"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
-          <div class="cred-row"><span class="cred-label">GitHub</span><span class="cred-value"><a href="https://github.com/andyspeight/luna-marketing" target="_blank" rel="noopener">andyspeight/luna-marketing</a></span></div>
-          <div class="cred-row"><span class="cred-label">Hosting</span><span class="cred-value tb">Vercel</span></div>
-        </div>
-        <div class="card card-full"><div class="card-label">Quick Links</div><div class="quick-links">
-          <a class="quick-link" href="https://marketing.travelify.io/demo.html" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>Interactive Demo</a>
-          <a class="quick-link" href="https://marketing.travelify.io/client.html" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Client Portal</a>
-          <a class="quick-link" href="https://marketing.travelify.io/admin.html" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83"/></svg>Admin</a>
-          <a class="quick-link" href="https://airtable.com/appSoIlSe0sNaJ4BZ" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>Airtable</a>
-          <a class="quick-link" href="https://github.com/andyspeight/luna-marketing" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>GitHub</a>
-        </div></div>
-      </div>
-      <div class="notes-block"><div class="card-label">Pending</div>
-        <div class="note-item"><span class="note-bullet"></span><span>Metricool integration (Custom plan, X-Mc-Auth header)</span></div>
-        <div class="note-item"><span class="note-bullet"></span><span>Brevo welcome email (needs API key + sender verification)</span></div>
-        <div class="note-item"><span class="note-bullet"></span><span>Monthly reports, engagement dashboard, smart scheduling, white-label portal, client health scoring</span></div>
-      </div>
-    </div>
-
-    <!-- ═══ QUICK QUOTE ═══ -->
-    <div class="tool-view" id="quick-quote">
-      <div class="tool-header">
-        <div class="tool-icon-lg" style="background:linear-gradient(135deg,var(--tg-warning),#D97706)"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
-        <div>
-          <div class="tool-title">Quick Quote</div>
-          <div class="tool-subtitle">Paid add-on for Boost/Ignite. 200+ live supplier APIs, client books directly from quote. Luna AI scrapes non-API websites via URL.</div>
-          <div class="status-badge building"><span class="status-dot"></span>Launching — Mid-April 2026</div>
-        </div>
-      </div>
-      <div class="cards-grid">
-        <div class="card"><div class="card-label">Rollout Plan</div>
-          <div class="cred-row"><span class="cred-label">Phase 1</span><span class="cred-value tb">Existing clients — first 3 months</span></div>
-          <div class="cred-row"><span class="cred-label">Phase 2</span><span class="cred-value tb">Consortia: PTS, TNG, Advantage</span></div>
-        </div>
-        <div class="card"><div class="card-label">Positioning vs TProfile</div>
-          <div class="cred-row"><span class="cred-label">Line</span><span class="cred-value highlight">"TProfile presents beautifully. Quick Quote searches, quotes, and books — all in one place."</span></div>
-        </div>
-      </div>
-      <div class="notes-block"><div class="card-label">Key Notes</div>
-        <div class="note-item"><span class="note-bullet"></span><span>Full battlecard and counter-strategy produced</span></div>
-        <div class="note-item"><span class="note-bullet"></span><span>200+ live supplier APIs — search, quote, book in one flow</span></div>
-        <div class="note-item"><span class="note-bullet"></span><span>Luna AI scrapes non-API supplier websites when given a URL</span></div>
-      </div>
-    </div>
-
-    <!-- ═══ KNOWLEDGE BOT ═══ -->
-    <div class="tool-view" id="knowledge-bot">
-      <div class="tool-header">
-        <div class="tool-icon-lg" style="background:linear-gradient(135deg,var(--tg-success),#059669)"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
-        <div>
-          <div class="tool-title">Travelgenix Knowledge Bot</div>
-          <div class="tool-subtitle">Sales chatbot on travelgenix.io. 139 Q&A records, 10 tables. Lead capture with auto-prompt after 3 questions.</div>
-          <div class="status-badge live"><span class="status-dot"></span>Live</div>
-          <a class="open-tool-btn" href="https://www.travelgenix.io" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Open travelgenix.io</a>
-        </div>
-      </div>
-      <div class="cards-grid">
-        <div class="card"><div class="card-label">Airtable Base</div>
-          <div class="cred-row"><span class="cred-label">Base ID</span><span class="cred-value">app6Ot3eOb3DangkB</span><button class="btn-copy" onclick="cc('app6Ot3eOb3DangkB',this)" aria-label="Copy"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
-          <div class="cred-row"><span class="cred-label">Tables</span><span class="cred-value tb">Company, Products, Pricing, WhoWeHelp, Objections, Roadmap, UniLinks, Leads, Conversations, Messages</span></div>
-        </div>
-        <div class="card"><div class="card-label">Deployment</div>
-          <div class="cred-row"><span class="cred-label">Live On</span><span class="cred-value"><a href="https://www.travelgenix.io" target="_blank" rel="noopener">travelgenix.io</a></span></div>
-          <div class="cred-row"><span class="cred-label">Method</span><span class="cred-value tb">Duda Body End HTML injection</span></div>
-          <div class="cred-row"><span class="cred-label">Position</span><span class="cred-value tb">Floating widget, bottom-right</span></div>
-        </div>
-        <div class="card card-full"><div class="card-label">Quick Links</div><div class="quick-links">
-          <a class="quick-link" href="https://airtable.com/app6Ot3eOb3DangkB" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>Airtable</a>
-          <a class="quick-link" href="https://www.travelgenix.io" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>travelgenix.io</a>
-          <a class="quick-link" href="https://university.travelgenix.io" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>University</a>
-        </div></div>
-      </div>
-      <div class="notes-block"><div class="card-label">Key Notes</div>
-        <div class="note-item"><span class="note-bullet"></span><span>Three-beat pattern: answer honestly, reinforce strength, create next step</span></div>
-        <div class="note-item"><span class="note-bullet"></span><span>Never names competitors; how-to questions point to university.travelgenix.io</span></div>
-        <div class="note-item"><span class="note-bullet"></span><span>Lead capture: Name/Email/Company/Consortia — "Get in Touch" vs "Auto Prompt"</span></div>
-      </div>
-    </div>
-
-    <!-- ═══ DESTINATIONS DB ═══ -->
-    <div class="tool-view" id="destinations">
-      <div class="tool-header">
-        <div class="tool-icon-lg" style="background:linear-gradient(135deg,#EC4899,#BE185D)"><svg viewBox="0 0 24 24"><circle cx="12" cy="10" r="3"/><path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 7 8 11.7z"/></svg></div>
-        <div>
-          <div class="tool-title">Destination Content Database</div>
-          <div class="tool-subtitle">Multi-tier destination content. Countries, cities/regions, resorts — all pushed to Airtable with Unsplash images.</div>
-          <div class="status-badge live"><span class="status-dot"></span>Live — 51+ Countries</div>
-          <a class="open-tool-btn" href="https://airtable.com/appuZdlMJ7HKUt6qS" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Open in Airtable</a>
-        </div>
-      </div>
-      <div class="cards-grid">
-        <div class="card"><div class="card-label">Airtable Base</div>
-          <div class="cred-row"><span class="cred-label">Base ID</span><span class="cred-value">appuZdlMJ7HKUt6qS</span><button class="btn-copy" onclick="cc('appuZdlMJ7HKUt6qS',this)" aria-label="Copy"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
-          <div class="cred-row"><span class="cred-label">Countries</span><span class="cred-value">tblsxbqbyhTDoWhbo</span><button class="btn-copy" onclick="cc('tblsxbqbyhTDoWhbo',this)" aria-label="Copy"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
-          <div class="cred-row"><span class="cred-label">Regions</span><span class="cred-value">tblTkKujdVZgWPAQe</span><button class="btn-copy" onclick="cc('tblTkKujdVZgWPAQe',this)" aria-label="Copy"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
-          <div class="cred-row"><span class="cred-label">Resorts</span><span class="cred-value">tblwV9gnbVEyZ99gI</span><button class="btn-copy" onclick="cc('tblwV9gnbVEyZ99gI',this)" aria-label="Copy"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
-        </div>
-        <div class="card"><div class="card-label">Coverage</div>
-          <div class="cred-row"><span class="cred-label">Countries</span><span class="cred-value tb">51+</span></div>
-          <div class="cred-row"><span class="cred-label">Regions</span><span class="cred-value tb">162+</span></div>
-          <div class="cred-row"><span class="cred-label">Resorts</span><span class="cred-value tb">200+</span></div>
-        </div>
-      </div>
-      <div class="notes-block"><div class="card-label">Operational Rules</div>
-        <div class="note-item"><span class="note-bullet"></span><span>Resorts: push <strong>one at a time</strong>. Countries/regions: batch 2–3</span></div>
-        <div class="note-item"><span class="note-bullet"></span><span>Unsplash script stops at rate limit, resumes safely on re-run</span></div>
-        <div class="note-item"><span class="note-bullet"></span><span>Completed: Ireland, Croatia, France, Turkey, Austria, Slovenia, Switzerland, USA, Morocco, Italy, India, Australia, NZ, Tier 2, Far East</span></div>
-      </div>
-    </div>
-
-    <!-- ═══ EXCLUSIVELY LINDOS ═══ -->
-    <div class="tool-view" id="lindos">
-      <div class="tool-header">
-        <div class="tool-icon-lg" style="background:linear-gradient(135deg,#F97316,#C2410C)"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
-        <div>
-          <div class="tool-title">Exclusively Lindos</div>
-          <div class="tool-subtitle">250 properties from exclusivelylindos.com. All 5 long-text fields backfilled. 3,420 images on Google Drive.</div>
-          <div class="status-badge live"><span class="status-dot"></span>Live</div>
-          <a class="open-tool-btn" href="https://airtable.com/appFmQrDHzripFkAB" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Open in Airtable</a>
-        </div>
-      </div>
-      <div class="cards-grid">
-        <div class="card"><div class="card-label">Airtable Base</div>
-          <div class="cred-row"><span class="cred-label">Base ID</span><span class="cred-value">appFmQrDHzripFkAB</span><button class="btn-copy" onclick="cc('appFmQrDHzripFkAB',this)" aria-label="Copy"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
-          <div class="cred-row"><span class="cred-label">Table</span><span class="cred-value">tbluVcdoFADiJX7X6</span><button class="btn-copy" onclick="cc('tbluVcdoFADiJX7X6',this)" aria-label="Copy"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
-          <div class="cred-row"><span class="cred-label">Merge</span><span class="cred-value tb">Property Name (<code style="font-family:var(--tg-font-mono);font-size:var(--text-xs)">fld9GUKDUK754qX5W</code>)</span><button class="btn-copy" onclick="cc('fld9GUKDUK754qX5W',this)" aria-label="Copy"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
-        </div>
-        <div class="card"><div class="card-label">Stats</div>
-          <div class="cred-row"><span class="cred-label">Properties</span><span class="cred-value tb">250</span></div>
-          <div class="cred-row"><span class="cred-label">Images</span><span class="cred-value tb">3,420 (Google Drive)</span></div>
-          <div class="cred-row"><span class="cred-label">Batch</span><span class="cred-value tb">2 records per call max</span></div>
-        </div>
-        <div class="card card-full"><div class="card-label">Quick Links</div><div class="quick-links">
-          <a class="quick-link" href="https://airtable.com/appFmQrDHzripFkAB" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>Airtable</a>
-          <a class="quick-link" href="https://www.exclusivelylindos.com" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>exclusivelylindos.com</a>
-        </div></div>
-      </div>
-      <div class="notes-block"><div class="card-label">Key Notes</div>
-        <div class="note-item"><span class="note-bullet"></span><span>Upsert merge field: Property Name (fld9GUKDUK754qX5W)</span></div>
-        <div class="note-item"><span class="note-bullet"></span><span>2 records per API call max for sustained throughput</span></div>
-      </div>
-    </div>
-
-    <!-- ═══ LUNA ONBOARDING ═══ -->
-    <div class="tool-view" id="luna-onboarding">
-      <div class="tool-header">
-        <div class="tool-icon-lg" style="background:linear-gradient(135deg,#14B8A6,#0D9488)"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
-        <div>
-          <div class="tool-title">Luna Onboarding</div>
-          <div class="tool-subtitle">Guided client onboarding portal with progress tracking, checklists, document collection, embedded training, and milestone celebrations. Designed to eliminate post-go-live "wilting" — the #1 churn driver.</div>
-          <div class="status-badge building"><span class="status-dot"></span>In Development — Research Complete</div>
-        </div>
-      </div>
-      <div class="cards-grid">
-        <div class="card"><div class="card-label">Planned Architecture</div>
-          <div class="cred-row"><span class="cred-label">Backend</span><span class="cred-value tb">Airtable (new base)</span></div>
-          <div class="cred-row"><span class="cred-label">Frontend</span><span class="cred-value tb">Vercel — client portal + internal dashboard</span></div>
-          <div class="cred-row"><span class="cred-label">AI Layer</span><span class="cred-value tb">Luna AI contextual help within portal</span></div>
-          <div class="cred-row"><span class="cred-label">Stack</span><span class="cred-value tb">Matches Luna Marketing pattern</span></div>
-        </div>
-        <div class="card"><div class="card-label">Build Phases</div>
-          <div class="cred-row"><span class="cred-label">Phase 1</span><span class="cred-value tb">Welcome portal: checklist, progress, document hub, training</span></div>
-          <div class="cred-row"><span class="cred-label">Phase 2</span><span class="cred-value tb">Internal dashboard: team view, client health, alerts</span></div>
-          <div class="cred-row"><span class="cred-label">Phase 3</span><span class="cred-value tb">Delight features: celebrations, NPS, Luna AI integration</span></div>
-        </div>
-        <div class="card"><div class="card-label">Package Playbooks</div>
-          <div class="cred-row"><span class="cred-label">Spark</span><span class="cred-value tb">Lightweight onboarding — fewer steps, faster go-live</span></div>
-          <div class="cred-row"><span class="cred-label">Boost</span><span class="cred-value tb">Standard onboarding — full training, content gathering</span></div>
-          <div class="cred-row"><span class="cred-label">Ignite</span><span class="cred-value tb">Premium onboarding — deep config, marketing setup, extended support</span></div>
-        </div>
-      </div>
-      <div class="notes-block"><div class="card-label">Key Notes</div>
-        <div class="note-item"><span class="note-bullet"></span><span>Full research document produced: market analysis, feature recommendations, competitive landscape</span></div>
-        <div class="note-item"><span class="note-bullet"></span><span>No travel tech competitor has a structured onboarding portal — genuine differentiator</span></div>
-        <div class="note-item"><span class="note-bullet"></span><span>Go-live conditional on client self-rating confidence of 7/10+ (wilting intervention)</span></div>
-        <div class="note-item"><span class="note-bullet"></span><span>Progress bars drive 30-50% higher completion rates (research finding)</span></div>
-        <div class="note-item"><span class="note-bullet"></span><span>Dual-portal concept: clients see guided journey, team sees health dashboard</span></div>
-      </div>
-    </div>
-
-    <!-- ═══ LUNA TRENDS ═══ -->
-    <div class="tool-view" id="luna-trends">
-      <div class="tool-header">
-        <div class="tool-icon-lg" style="background:linear-gradient(135deg,#F43F5E,#BE123C)"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
-        <div>
-          <div class="tool-title">Luna Trends</div>
-          <div class="tool-subtitle">Proactive marketing intelligence for clients. Scans trade press, airline routes, Google Trends, social media, events, and competitor activity to deliver personalised, actionable marketing suggestions direct to each client's dashboard.</div>
-          <div class="status-badge building"><span class="status-dot"></span>In Development — Brief Complete</div>
-          <a class="open-tool-btn" href="https://trends.travelify.io" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Open Luna Trends</a>
-        </div>
-      </div>
-      <div class="cards-grid">
-        <div class="card"><div class="card-label">Planned Architecture</div>
-          <div class="cred-row"><span class="cred-label">Backend</span><span class="cred-value tb">Airtable (new base, recommended)</span></div>
-          <div class="cred-row"><span class="cred-label">Frontend</span><span class="cred-value tb">Vercel — client dashboard</span></div>
-          <div class="cred-row"><span class="cred-label">AI</span><span class="cred-value tb">Claude API — analysis, matching, content suggestions</span></div>
-          <div class="cred-row"><span class="cred-label">Stack</span><span class="cred-value tb">Matches Luna Marketing pattern</span></div>
-        </div>
-        <div class="card"><div class="card-label">Intelligence Sources</div>
-          <div class="cred-row"><span class="cred-label">Source 1</span><span class="cred-value tb">Trade press (TTG, Travolution, Travel Weekly)</span></div>
-          <div class="cred-row"><span class="cred-label">Source 2</span><span class="cred-value tb">Airline route announcements</span></div>
-          <div class="cred-row"><span class="cred-label">Source 3</span><span class="cred-value tb">Google Trends + social media signals</span></div>
-          <div class="cred-row"><span class="cred-label">Source 4</span><span class="cred-value tb">Events, holidays, competitor activity</span></div>
-        </div>
-        <div class="card"><div class="card-label">Commercial Model</div>
-          <div class="cred-row"><span class="cred-label">Cost</span><span class="cred-value tb">~£400-800/month for 300 clients</span></div>
-          <div class="cred-row"><span class="cred-label">Delivery</span><span class="cred-value tb">Personalised dashboard per client</span></div>
-          <div class="cred-row"><span class="cred-label">Integration</span><span class="cred-value tb">Links to Luna Marketing for one-click action</span></div>
-        </div>
-      </div>
-      <div class="notes-block"><div class="card-label">Key Notes</div>
-        <div class="note-item"><span class="note-bullet"></span><span>Full design-build brief produced with 5-phase build plan</span></div>
-        <div class="note-item"><span class="note-bullet"></span><span>Solves the "clients don't know how to market" problem — AI does the research for them</span></div>
-        <div class="note-item"><span class="note-bullet"></span><span>Integration with Luna Marketing: trend triggers an automatic social post draft</span></div>
-        <div class="note-item"><span class="note-bullet"></span><span>No competitor offers personalised marketing intelligence at this scale for SMEs</span></div>
-      </div>
-    </div>
-
+    <!-- SOURCES -->
+    <section class="panel" id="panel-sources" role="tabpanel" aria-labelledby="tab-sources">
+      <div class="section-head"><h2>Sources</h2></div>
+      <div id="sources-body"></div>
+    </section>
   </main>
-</div>
-
-<div class="toast" id="toast">Copied</div>
 
 <script>
-// ═══════════════════════════════════════════════════════
-// AUTH — handled by /tg-auth-gate.js (loaded in <head>)
-//
-// The gate validates the .travelify.io session cookie, enforces the
-// tool_hub product permission, and fires 'tg-auth-ready' when the page
-// is allowed to render. Until then, the login-gate overlay covers
-// everything. We never collect credentials on this page — credentials
-// only ever go to id.travelify.io.
-// ═══════════════════════════════════════════════════════
+(function () {
+  "use strict";
+  var DATA = null;
 
-function unlock() {
-  var gate = document.getElementById('login-gate');
-  if (gate) gate.classList.add('hidden');
-  document.getElementById('app').classList.add('visible');
-
-  // Populate the topbar with the signed-in user's display name
-  if (window.tgAuth && tgAuth.user) {
-    var label = tgAuth.user.fullName || tgAuth.user.email || 'Andy Speight';
-    var topbarUser = document.getElementById('topbarUser');
-    if (topbarUser) topbarUser.textContent = label;
+  // ---------- helpers ----------
+  function esc(s) {
+    return String(s == null ? "" : s)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
   }
-}
-
-function logout() {
-  if (window.tgAuth && tgAuth.signOut) {
-    tgAuth.signOut();
-  } else {
-    window.location.href = 'https://id.travelify.io/signin.html';
+  function fmtDate(iso) {
+    if (!iso) return "—";
+    var d = new Date(iso);
+    if (isNaN(d)) return "—";
+    return d.toLocaleDateString("en-GB", { day: "numeric", month: "short" }) + " " +
+           d.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
   }
-}
+  function arr(v) { return Array.isArray(v) ? v : (v ? [v] : []); }
+  function $(id) { return document.getElementById(id); }
 
-window.addEventListener('tg-auth-ready', unlock);
+  // ---------- theme ----------
+  function applyTheme(t) {
+    document.documentElement.setAttribute("data-theme", t);
+    var sun = '<circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>';
+    var moon = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+    $("themeIcon").innerHTML = t === "dark" ? sun : moon;
+    try { sessionStorage.setItem("lt-theme", t); } catch (e) {}
+  }
+  $("themeBtn").addEventListener("click", function () {
+    applyTheme(document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark");
+  });
+  try { var saved = sessionStorage.getItem("lt-theme"); if (saved) applyTheme(saved); } catch (e) {}
 
-// ═══ THEME ═══
-function toggleTheme(){const h=document.documentElement,d=h.getAttribute('data-theme')==='dark';h.setAttribute('data-theme',d?'':'dark');localStorage.setItem('tg-hub-theme',d?'light':'dark')}
-(function(){if(localStorage.getItem('tg-hub-theme')==='dark')document.documentElement.setAttribute('data-theme','dark')})();
+  // ---------- tabs ----------
+  var tabs = document.querySelectorAll(".tab");
+  tabs.forEach(function (tab) {
+    tab.addEventListener("click", function () { selectTab(tab.dataset.tab); });
+  });
+  function selectTab(name) {
+    tabs.forEach(function (t) {
+      var on = t.dataset.tab === name;
+      t.setAttribute("aria-selected", on ? "true" : "false");
+      t.tabIndex = on ? 0 : -1;
+    });
+    document.querySelectorAll(".panel").forEach(function (p) {
+      p.classList.toggle("active", p.id === "panel-" + name);
+    });
+  }
 
-// ═══ NAV — with re-trigger of stagger animations ═══
-function showTool(el){
-  closeSidebar();
-  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
-  el.classList.add('active');
-  const id=el.dataset.tool;
-  document.querySelectorAll('.tool-view').forEach(v=>{v.classList.remove('active');v.querySelectorAll('.tool-header,.cards-grid>*,.notes-block').forEach(c=>{c.style.animation='none';c.offsetHeight;c.style.animation=''})});
-  const t=document.getElementById(id);
-  if(t){t.classList.add('active');t.querySelectorAll('.tool-header,.cards-grid>*,.notes-block').forEach(c=>{c.style.animation='none';c.offsetHeight;c.style.animation=''})}
-}
-document.querySelectorAll('.nav-item').forEach(i=>{i.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();showTool(i)}})});
+  // ---------- skeleton ----------
+  function skeletonGrid() {
+    var s = "";
+    for (var i = 0; i < 6; i++) {
+      s += '<div class="skeleton"><div class="shimmer sk-line" style="width:60%;height:18px"></div>' +
+           '<div class="shimmer sk-line"></div><div class="shimmer sk-line" style="width:90%"></div>' +
+           '<div class="shimmer sk-line" style="width:40%"></div></div>';
+    }
+    return '<div class="grid">' + s + '</div>';
+  }
 
-// ═══ MOBILE ═══
-function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('mobileOverlay').classList.toggle('show')}
-function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('mobileOverlay').classList.remove('show')}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSidebar()});
+  // ---------- render ----------
+  function scoreClass(n) { return n >= 7 ? "high" : n >= 4 ? "mid" : "low"; }
+  function dirClass(d) { return "dir-" + String(d || "").toLowerCase(); }
 
-// ═══ CLIPBOARD ═══
-function cc(t,b){navigator.clipboard.writeText(t).then(()=>{b.classList.add('copied');showToast('Copied');setTimeout(()=>b.classList.remove('copied'),1500)}).catch(()=>{const a=document.createElement('textarea');a.value=t;a.style.cssText='position:fixed;opacity:0';document.body.appendChild(a);a.select();document.execCommand('copy');document.body.removeChild(a);b.classList.add('copied');showToast('Copied');setTimeout(()=>b.classList.remove('copied'),1500)})}
-function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000)}
+  function renderStats(c) {
+    $("stats").innerHTML =
+      stat("Active Trends", c.activeTrends, c.trends + " total", true) +
+      stat("Signals", c.signals, c.unprocessedSignals + " unprocessed") +
+      stat("Active Sources", c.activeSources, c.sources + " total") +
+      stat("Last Sync", "", "");
+    // counts on tabs
+    $("ct-trends").textContent = c.trends;
+    $("ct-signals").textContent = c.signals;
+    $("ct-sources").textContent = c.sources;
+  }
+  function stat(label, value, sub, accent) {
+    if (label === "Last Sync") {
+      return '<div class="stat"><div class="label">Last Sync</div>' +
+        '<div class="value" style="font-size:15px;font-weight:600;line-height:1.4">' +
+        fmtDate(DATA && DATA.generatedAt) + '</div></div>';
+    }
+    return '<div class="stat' + (accent ? " accent" : "") + '">' +
+      '<div class="label">' + esc(label) + '</div>' +
+      '<div class="value">' + esc(value) + '</div>' +
+      (sub ? '<div class="sub">' + esc(sub) + '</div>' : '') + '</div>';
+  }
+
+  function parseMA(raw) {
+    if (!raw) return [];
+    try { var p = JSON.parse(raw); return Array.isArray(p) ? p : []; }
+    catch (e) { return []; }
+  }
+
+  function renderTrends(trends) {
+    if (!trends.length) {
+      $("trends-body").innerHTML = emptyState(
+        "No trends yet",
+        "Signals are gathering in the background. Run synthesis once the pool has built up, and trends will appear here ranked by opportunity."
+      );
+      return;
+    }
+    var html = '<div class="grid">';
+    trends.forEach(function (t) {
+      var ma = parseMA(t.marketingActions);
+      var dests = arr(t.destinations);
+      html += '<article class="card">' +
+        '<div class="card-top"><h3>' + esc(t.name) + '</h3>' +
+          (t.score != null ? '<div class="score ' + scoreClass(t.score) + '">' + esc(t.score) + '</div>' : '') +
+        '</div>' +
+        '<p class="desc">' + esc(t.description) + '</p>' +
+        '<div class="chips">' +
+          (t.direction ? '<span class="chip ' + dirClass(t.direction) + '">' + esc(t.direction) + '</span>' : '') +
+          (t.type ? '<span class="chip type">' + esc(t.type) + '</span>' : '') +
+          (t.signalCount != null ? '<span class="chip">' + esc(t.signalCount) + ' signal' + (t.signalCount === 1 ? '' : 's') + '</span>' : '') +
+          dests.slice(0, 3).map(function (d) { return '<span class="chip">' + esc(d) + '</span>'; }).join('') +
+        '</div>';
+      if (ma.length) {
+        html += '<div class="ma"><div class="ma-title">Suggested marketing actions</div>';
+        ma.slice(0, 3).forEach(function (a) {
+          html += '<div class="ma-item">' +
+            (a.type ? '<div class="ma-type">' + esc(a.type) + '</div>' : '') +
+            (a.headline ? '<div class="ma-headline">' + esc(a.headline) + '</div>' : '') +
+            (a.brief ? '<div class="ma-brief">' + esc(a.brief) + '</div>' : '') +
+          '</div>';
+        });
+        html += '</div>';
+      }
+      html += '</article>';
+    });
+    html += '</div>';
+    $("trends-body").innerHTML = html;
+  }
+
+  function renderSignals(signals) {
+    if (!signals.length) {
+      $("signals-body").innerHTML = emptyState("No signals yet", "Run a collection to pull the latest from the active RSS sources.");
+      return;
+    }
+    var html = '<div class="list">';
+    signals.forEach(function (s) {
+      html += '<div class="row">' +
+        '<span class="dot ' + (s.processed ? "gray" : "green") + '" title="' + (s.processed ? "Processed" : "Unprocessed") + '"></span>' +
+        '<div class="main"><div class="title">' + esc(s.title) + '</div>' +
+        '<div class="meta">' +
+          (s.signalType ? '<span>' + esc(s.signalType) + '</span>' : '') +
+          (arr(s.destinations).length ? '<span>· ' + esc(arr(s.destinations).join(", ")) + '</span>' : '') +
+          '<span>· ' + fmtDate(s.detectedAt) + '</span>' +
+          (s.sourceUrl ? '<span>· <a href="' + esc(s.sourceUrl) + '" target="_blank" rel="noopener noreferrer">source</a></span>' : '') +
+        '</div></div>' +
+        (s.relevance != null ? '<span class="rel" title="Relevance">' + esc(s.relevance) + '</span>' : '') +
+      '</div>';
+    });
+    html += '</div>';
+    $("signals-body").innerHTML = html;
+  }
+
+  function renderSources(sources) {
+    if (!sources.length) { $("sources-body").innerHTML = emptyState("No sources", "Add sources in Airtable to start collecting."); return; }
+    var html = '<div class="list">';
+    sources.forEach(function (s) {
+      var statusDot = s.status === "Active" ? "green" : s.status === "Error" ? "red" : s.status === "Paused" ? "amber" : "gray";
+      html += '<div class="row">' +
+        '<span class="dot ' + statusDot + '" title="' + esc(s.status) + '"></span>' +
+        '<div class="main"><div class="title">' + esc(s.name) + '</div>' +
+        '<div class="meta">' +
+          (s.category ? '<span>' + esc(s.category) + '</span>' : '') +
+          (s.type ? '<span>· ' + esc(s.type) + '</span>' : '') +
+          (s.checkFrequency ? '<span>· ' + esc(s.checkFrequency) + '</span>' : '') +
+          '<span>· last checked ' + fmtDate(s.lastChecked) + '</span>' +
+        '</div></div>' +
+      '</div>';
+    });
+    html += '</div>';
+    $("sources-body").innerHTML = html;
+  }
+
+  function emptyState(title, body) {
+    return '<div class="state">' +
+      '<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-7 4 4 7-10"/><path d="M14 4h7v7"/></svg>' +
+      '<h3>' + esc(title) + '</h3><p>' + esc(body) + '</p></div>';
+  }
+  function errorState(msg) {
+    return '<div class="state">' +
+      '<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--tg-error)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>' +
+      '<h3>Could not load data</h3><p>' + esc(msg) + '</p></div>';
+  }
+
+  // ---------- load ----------
+  function load() {
+    $("trends-body").innerHTML = skeletonGrid();
+    $("updated").textContent = "Loading…";
+    fetch("/api/dashboard-data", { headers: { "Accept": "application/json" } })
+      .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+      .then(function (d) {
+        if (!d.ok) throw new Error(d.error || "Unknown error");
+        DATA = d;
+        renderStats(d.counts);
+        renderTrends(d.trends);
+        renderSignals(d.signals);
+        renderSources(d.sources);
+        $("updated").innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> Updated ' + fmtDate(d.generatedAt);
+      })
+      .catch(function (e) {
+        $("trends-body").innerHTML = errorState(e.message);
+        $("updated").textContent = "";
+      });
+  }
+  $("refreshBtn").addEventListener("click", load);
+
+  // ---------- actions (collect / synthesise) ----------
+  // The CRON_SECRET is never stored in this file. We prompt for it at runtime
+  // and keep it only in sessionStorage for the session, so the buttons work
+  // without ever shipping the secret in client code.
+  function getSecret() {
+    var s = "";
+    try { s = sessionStorage.getItem("lt-secret") || ""; } catch (e) {}
+    if (!s) {
+      s = window.prompt("Enter the Luna Trends admin secret to run this action.\n(Stored only for this browser session.)") || "";
+      if (s) { try { sessionStorage.setItem("lt-secret", s); } catch (e) {} }
+    }
+    return s;
+  }
+  function runAction(btn, path, label) {
+    var secret = getSecret();
+    if (!secret) return;
+    var original = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '<svg class="spin" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.22-8.56"/></svg> Running…';
+    fetch(path + "?secret=" + encodeURIComponent(secret))
+      .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, status: r.status, body: j }; }); })
+      .then(function (res) {
+        if (res.status === 401) {
+          try { sessionStorage.removeItem("lt-secret"); } catch (e) {}
+          alert("Admin secret rejected. Try again.");
+          return;
+        }
+        if (!res.ok) throw new Error(res.body && res.body.error ? res.body.error : "HTTP " + res.status);
+        var b = res.body || {};
+        var msg = label + " complete.\n";
+        if (b.signalsCreated != null) msg += "Signals created: " + b.signalsCreated + "\n";
+        if (b.sourcesChecked != null) msg += "Sources checked: " + b.sourcesChecked + "\n";
+        if (b.signalsProcessed != null) msg += "Signals processed: " + b.signalsProcessed + "\n";
+        if (b.trendsCreated != null) msg += "Trends created: " + b.trendsCreated + "\n";
+        alert(msg);
+        load();
+      })
+      .catch(function (e) { alert(label + " failed: " + e.message); })
+      .finally(function () { btn.disabled = false; btn.innerHTML = original; });
+  }
+  $("collectBtn").addEventListener("click", function () { runAction($("collectBtn"), "/api/collect", "Collection"); });
+  $("synthBtn").addEventListener("click", function () { runAction($("synthBtn"), "/api/synthesise", "Synthesis"); });
+
+  load();
+})();
 </script>
 </body>
 </html>
