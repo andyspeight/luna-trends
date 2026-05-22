@@ -162,7 +162,17 @@ async function collectFromRSS(source, existingUrls) {
 }
 
 module.exports = async function handler(req, res) {
-  const secret = req.query?.secret || req.headers?.['x-cron-secret'];
+  // Accept the secret from any of three places:
+  //   1. Authorization: Bearer <secret>  — Vercel cron sends THIS automatically.
+  //   2. ?secret=<secret>                 — manual browser/curl runs.
+  //   3. x-cron-secret header             — manual programmatic runs.
+  // The old vercel.json used ?secret=${CRON_SECRET}, but Vercel does NOT
+  // substitute env vars into cron paths, so the cron sent the literal string
+  // and every run failed auth (which is why no data collected). Reading the
+  // Bearer header is the supported Vercel cron auth mechanism. Fixed 22 May 2026.
+  const authHeader = req.headers?.['authorization'] || '';
+  const bearer = authHeader.startsWith('Bearer ') ? authHeader.slice(7) : '';
+  const secret = bearer || req.query?.secret || req.headers?.['x-cron-secret'];
   if (secret !== process.env.CRON_SECRET) {
     return res.status(401).json({ error: 'Unauthorized' });
   }
